@@ -2,33 +2,33 @@
 // initialize Hoodie
 var hoodie  = new Hoodie();
 
-// Todos Collection/View
-function Todos($element) {
+// Chats Collection/View
+function Chats($element) {
   var collection = [];
   var $el = $element;
 
-  // Handle marking todo as "done"
+  // Handle marking chat as "done"
   $el.on('click', 'input[type=checkbox]', function() {
-    hoodie.store.remove('todo', $(this).parent().data('id'));
+    hoodie.store.remove('chat', $(this).parent().data('id'));
     return false;
   });
 
-  // Handle "inline editing" of a todo.
+  // Handle "inline editing" of a chat.
   $el.on('click', 'label', function() {
     $(this).parent().parent().find('.editing').removeClass('editing');
     $(this).parent().addClass('editing');
     return false;
   });
 
-  // Handle updating of an "inline edited" todo.
+  // Handle updating of an "inline edited" chat.
   $el.on('keypress', 'input[type=text]', function(event) {
     if (event.keyCode === 13) {
-      hoodie.store.update('todo', $(this).parent().data('id'), {title: event.target.value});
+      hoodie.store.update('chat', $(this).parent().data('id'), {title: event.target.value});
     }
   });
 
-  // Find index/position of a todo in collection.
-  function getTodoItemIndexById(id) {
+  // Find index/position of a chat in collection.
+  function getChatItemIndexById(id) {
     for (var i = 0, len = collection.length; i < len; i++) {
       if (collection[i].id === id) {
         return i;
@@ -52,18 +52,18 @@ function Todos($element) {
     }
   }
 
-  this.add = function(todo) {
-    collection.push(todo);
+  this.add = function(chat) {
+    collection.push(chat);
     paint();
   };
 
-  this.update = function(todo) {
-    collection[getTodoItemIndexById(todo.id)] = todo;
+  this.update = function(chat) {
+    collection[getChatItemIndexById(chat.id)] = chat;
     paint();
   };
 
-  this.remove = function(todo) {
-    collection.splice(getTodoItemIndexById(todo.id), 1);
+  this.remove = function(chat) {
+    collection.splice(getChatItemIndexById(chat.id), 1);
     paint();
   };
 
@@ -73,27 +73,27 @@ function Todos($element) {
   };
 }
 
-// Instantiate Todos collection & view.
-var todos = new Todos($('#todolist'));
+// Instantiate Chats collection & view.
+var chats = new Chats($('#chatlist'));
 
-// initial load of all todo items from the store
-hoodie.store.findAll('todo').then(function(allTodos) {
-  allTodos.forEach(todos.add);
+// initial load of all chat items from the store
+hoodie.store.findAll('chat').then(function(allChats) {
+  allChats.forEach(chats.add);
 });
 
-// when a todo changes, update the UI.
-hoodie.store.on('todo:add', todos.add);
-hoodie.store.on('todo:update', todos.update);
-hoodie.store.on('todo:remove', todos.remove);
-// clear todos when user logs out,
-hoodie.account.on('signout', todos.clear);
+// when a chat changes, update the UI.
+hoodie.store.on('chat:add', chats.add);
+hoodie.store.on('chat:update', chats.update);
+hoodie.store.on('chat:remove', chats.remove);
+// clear chats when user logs out,
+hoodie.account.on('signout', chats.clear);
 
 
 // handle creating a new task
-$('#todoinput').on('keypress', function(event) {
+$('#chatinput').on('keypress', function(event) {
   // ENTER & non-empty.
   if (event.keyCode === 13 && event.target.value.length) {
-    hoodie.store.add('todo', {title: event.target.value});
+    hoodie.store.add('chat', {title: event.target.value});
     event.target.value = '';
   }
 });
