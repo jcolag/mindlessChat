@@ -74,41 +74,6 @@
         <input type="text" id="chatinput"  placeholder="new comment ↵" />
       </div>
 
-      <aside role="complementary" class="code">
-<pre class="language-javascript"><code class="language-javascript">
-// initialize Hoodie
-var hoodie  = new Hoodie()
-
-// initial load of all chat items from the store
-hoodie.store.findAll('chat').then( function(chats) {
-  chats.sort( sortByCreatedAt ).forEach( addChat )
-})
-
-// when a new chat gets stored, add it to the UI
-hoodie.store.on('add:chat', addChat)
-// when a user signs out, clear the chat list
-hoodie.account.on('signout', clearChats)
-
-// handle creating a new task
-$('#chatinput').on('keypress', function(event) {
-  if (event.keyCode == 13) { // ENTER
-    hoodie.store.add('chat', {title: event.target.value});
-    event.target.value = '';
-  }
-})
-
-function addChat( chat ) {
-  $('#chatlist').append('&lt;li&gt;'+chat.title+'&lt;/li&gt;');
-}
-function clearChats() {
-  $('#chatlist').html('');
-}
-function sortByCreatedAt(a, b) {
-  return a.createdAt &gt; b.createdAt
-}
-</code></pre>
-      </aside><!-- /.code -->
-
       <footer role="contentinfo" class="copy">
         <p>&hearts; hood.ie 2015</p>
       </footer>
