@@ -7,3 +7,7 @@ So, to demonstrate that, I figured that a chat application should be a viable fi
 
 That said, if this turns out useful to someone, by all means, take it with my AGPLed blessing...
 
+## Libraries
+
+From an example chat application, this now uses `global-share`, the Global Share Plugin.  Unsurprisingly, this requires changing the architecture of the program from the default to-do list.
+
