@@ -67,12 +67,16 @@
         </div>
       </header>
 
-      <div role="main" class="content">
-        <ul id="chatlist"></ul>
+      <section>
+        <div class="border overflow-scroll chat-stream-container" data-action="chat-stream"></div>
 
-        <label for="chatinput"><b>Chat</b></label>
-        <input type="text" id="chatinput"  placeholder="new comment ↵" />
-      </div>
+        <div role="main" class="content">
+          <ul id="chatlist"></ul>
+
+          <label for="chatinput"><b>Chat</b></label>
+          <input type="text" id="chatinput" placeholder="new comment ↵" />
+        </div>
+      </section>
     </div>
 
     <script src="assets/vendor/jquery-2.1.0.min.js"></script>
