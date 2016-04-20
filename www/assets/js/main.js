@@ -2,6 +2,18 @@
 // initialize Hoodie
 var hoodie  = new Hoodie();
 
+// message model for storage
+function messageModel(message) {
+  var user = hoodie.account.username;
+  var postDate = new Date();
+
+  return {
+    'user': user,
+    'date': postDate,
+    'message': message
+  };
+}
+
 // Chats Collection/View
 function Chats($element) {
   var collection = [];
