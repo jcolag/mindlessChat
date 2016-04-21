@@ -21,7 +21,7 @@ function Chats($element) {
 
   // Handle marking chat as "done"
   $el.on('click', 'input[type=checkbox]', function() {
-    hoodie.store.remove('chat', $(this).parent().data('id'));
+    hoodie.store.remove('chat', $(this).parent().data('id')).publish();
     return false;
   });
 
@@ -35,7 +35,7 @@ function Chats($element) {
   // Handle updating of an "inline edited" chat.
   $el.on('keypress', 'input[type=text]', function(event) {
     if (event.keyCode === 13) {
-      hoodie.store.update('chat', $(this).parent().data('id'), {title: event.target.value});
+      hoodie.store.update('chat', $(this).parent().data('id'), {title: event.target.value}).publish();
     }
   });
 
@@ -89,14 +89,14 @@ function Chats($element) {
 var chats = new Chats($('#chatlist'));
 
 // initial load of all chat items from the store
-hoodie.store.findAll('chat').then(function(allChats) {
+hoodie.global.findAll('chat').then(function(allChats) {
   allChats.forEach(chats.add);
 });
 
 // when a chat changes, update the UI.
-hoodie.store.on('chat:add', chats.add);
-hoodie.store.on('chat:update', chats.update);
-hoodie.store.on('chat:remove', chats.remove);
+hoodie.global.on('chat:add', chats.add);
+hoodie.global.on('chat:update', chats.update);
+hoodie.global.on('chat:remove', chats.remove);
 // clear chats when user logs out,
 hoodie.account.on('signout', chats.clear);
 
@@ -105,7 +105,7 @@ hoodie.account.on('signout', chats.clear);
 $('#chatinput').on('keypress', function(event) {
   // ENTER & non-empty.
   if (event.keyCode === 13 && event.target.value.length) {
-    hoodie.store.add('chat', {title: event.target.value});
+    hoodie.store.add('chat', {title: event.target.value}).publish();
     event.target.value = '';
   }
 });
