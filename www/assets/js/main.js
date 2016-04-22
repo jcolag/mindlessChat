@@ -57,8 +57,9 @@ function Chats($element) {
     for (var i = 0, len = collection.length; i<len; i++) {
       $el.append(
         '<li data-id="' + collection[i].id + '">' +
-          '<input type="checkbox"> <label>' + collection[i].title + '</label>' +
-          '<input type="text" value="' + collection[i].title + '"/>' +
+          '<label>' + collection[i].user + '</label>: ' +
+          '<label>' + collection[i].message + '</label> ' +
+          '<label>(' + collection[i].date + ')</label>' +
         '</li>'
       );
     }
@@ -67,6 +68,7 @@ function Chats($element) {
   this.add = function(chat) {
     collection.push(chat);
     paint();
+alert('Painted');
   };
 
   this.update = function(chat) {
@@ -104,8 +106,10 @@ hoodie.account.on('signout', chats.clear);
 // handle creating a new task
 $('#chatinput').on('keypress', function(event) {
   // ENTER & non-empty.
-  if (event.keyCode === 13 && event.target.value.length) {
-    hoodie.store.add('chat', {title: event.target.value}).publish();
+  var msgText = event.target.value;
+  if (event.keyCode === 13 && msgText.length) {
+    var msg = new messageModel(msgText);
+    hoodie.store.add('chat', msg).publish();
     event.target.value = '';
   }
 });
