@@ -14,6 +14,17 @@ function messageModel(message) {
   };
 }
 
+function getObjectClass(obj) {
+  if (obj && obj.constructor && obj.constructor.toString) {
+    var arr = obj.constructor.toString().match(
+      /function\s*(\w+)/);
+    if (arr && arr.length == 2) {
+      return arr[1];
+    }
+  }
+  return undefined;
+}
+
 // Chats Collection/View
 function Chats($element) {
   var collection = [];
@@ -55,20 +66,21 @@ function Chats($element) {
       return ( a.createdAt > b.createdAt ) ? 1 : -1;
     });
     for (var i = 0, len = collection.length; i<len; i++) {
-      $el.append(
-        '<li data-id="' + collection[i].id + '">' +
-          '<label>' + collection[i].user + '</label>: ' +
-          '<label>' + collection[i].message + '</label> ' +
-          '<label>(' + collection[i].date + ')</label>' +
-        '</li>'
-      );
+      if (collection[i].user) {
+        $el.append(
+          '<li data-id="' + collection[i].id + '">' +
+            '<label>' + collection[i].user + '</label>: ' +
+            '<label>' + collection[i].message + '</label> ' +
+            '<label>(' + collection[i].date + ')</label>' +
+          '</li>'
+        );
+      }
     }
   }
 
   this.add = function(chat) {
     collection.push(chat);
     paint();
-alert('Painted');
   };
 
   this.update = function(chat) {
