@@ -79,6 +79,11 @@ function Chats($element) {
   }
 
   this.add = function(chat) {
+    for (var i = 0; i < collection.length; i++) {
+      if (collection[i].id == chat.id) {
+        return;
+      }
+    }
     collection.push(chat);
     paint();
   };
