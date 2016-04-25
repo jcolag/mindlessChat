@@ -83,3 +83,8 @@ ul#todolist {
   display: inline-block;
   vertical-align: middle;
 }
+
+#chatinput {
+  width: 40em;
+}
+
