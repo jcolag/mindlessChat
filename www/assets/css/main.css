@@ -42,7 +42,6 @@ html[data-hoodie-account-status=signedout] .hoodie-account-signedout {
 .content {
   padding: 10px;
   float: left;
-  width: 380px;
 }
 .jumbotron {
   background: #EBE7DA;
