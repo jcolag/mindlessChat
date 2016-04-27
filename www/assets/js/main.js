@@ -67,11 +67,14 @@ function Chats($element) {
     });
     for (var i = 0, len = collection.length; i<len; i++) {
       if (collection[i].user) {
+        var date = collection[i].date.replace('T', ' '),
+            idx = date.indexOf('.');
+        date = date.substr(0, idx);
         $el.append(
           '<li data-id="' + collection[i].id + '">' +
-            '<label>' + collection[i].user + '</label>: ' +
-            '<label>' + collection[i].message + '</label> ' +
-            '<label>(' + collection[i].date + ')</label>' +
+            collection[i].user + ': ' +
+            collection[i].message + ' ' +
+            '(' + date + ')' +
           '</li>'
         );
       }
