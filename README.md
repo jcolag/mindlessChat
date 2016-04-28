@@ -11,3 +11,10 @@ That said, if this turns out useful to someone, by all means, take it with my AG
 
 From an example chat application, this now uses `global-share`, the [Global Share Plugin](https://github.com/hoodiehq/hoodie-plugin-global-share).  Unsurprisingly, this requires changing the architecture of the program from the default to-do list.
 
+## What's Involved?
+
+There were some false starts involved with (presumably) misunderstanding the `global share` documentation, but changes to the demonstration code involved some obvious HTML/CSS changes to _fit_ the concept and renaming away from any references to "To Do," and changing the various store add/update calls to call `.publish()`.  The other big change is creating an object model for messages that includes the user and timestamp.
+
+I also needed a few changes---primarily due to the ad hoc development process---to filter out the old _To Do_ messages and any duplicate messages that seemed to appear.
+
+Otherwise, it's pretty straightforward, and seems to point the way to public and private data.  Overall, probably a success.
